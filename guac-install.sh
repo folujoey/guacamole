@@ -393,6 +393,8 @@ bind_host = 0.0.0.0
 bind_port = 4822
 EOF
 
+
+
 # Ensure guacd is started
 echo -e "${BLUE}Starting guacd service & enable at boot...${NC}"
 service guacd stop 2>/dev/null
@@ -427,6 +429,10 @@ if [ $? -eq 0 ]; then
     fi
 fi
 
+service tomcat9 stop
+rm -r /var/lib/tomcat9/webapps/ROOT
+service tomcat9 start
+
 # I think there is another service called firewalld that some people could be running instead
 # Unless someone opens an issue about it or submits a pull request, I'm going to ignore it for now
 
@@ -443,4 +449,3 @@ echo -e "${BLUE}Installation Complete\n- Visit: http://localhost:8080/guacamole/
 if [ "${installDuo}" = true ]; then
     echo -e "${YELLOW}\nDon't forget to configure Duo in guacamole.properties. You will not be able to login otherwise.\nhttps://guacamole.apache.org/doc/${GUACVERSION}/gug/duo-auth.html${NC}"
 fi
-
