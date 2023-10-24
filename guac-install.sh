@@ -366,8 +366,9 @@ echo ${guacPwd}
 echo ${guacDb}
 
 # Set MySQL password
-SQLCODE="
-SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='${guacDb}';"
+SQLCODE= "SELECT COUNT(*) FROM '${guacDb}'.guacamole_entity;"
+#"
+#SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='${guacDb}';"
 
 MYSQL_RESULT=$( echo ${SQLCODE} | mysql -u root -D information_schema -h ${mysqlHost} -p${guacPwd} )
 if [[ $MYSQL_RESULT != "" ]]; then
