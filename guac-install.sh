@@ -370,7 +370,7 @@ SQLCODE= "SELECT COUNT(*) FROM '${guacDb}'.guacamole_entity;"
 #"
 #SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='${guacDb}';"
 
-MYSQL_RESULT=$( echo ${SQLCODE} | mysql -u root -D information_schema -h ${mysqlHost} -p${guacPwd} )
+MYSQL_RESULT=$( echo ${SQLCODE} | mysql -u root -D information_schema -h ${mysqlHost} -p${guacPwd} | grep '0' )
 if [[ $MYSQL_RESULT != "" ]]; then
     echo -e "${YELLOW}It appears there is already a MySQL database (${guacDb}) on ${mysqlHost}${NC}"
 else
