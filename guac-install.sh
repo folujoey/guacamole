@@ -365,8 +365,10 @@ echo ${guacUser}
 echo ${guacPwd}
 echo ${guacDb}
 
+
 # Set MySQL password
 SQLCODE="SHOW TABLES FROM ${guacDb};"
+echo "SQLCODE = $SQLCODE"
 #"
 #SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='${guacDb}';"
 
