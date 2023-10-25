@@ -377,8 +377,8 @@ if [[ $MYSQL_RESULT != "" ]]; then
     echo -e "${YELLOW}It appears there is already a MySQL database (${guacDb}) on ${mysqlHost}${NC}"
 else
     echo -e "${YELLOW}DB doesnt exist - creating... (${guacDb}) on ${mysqlHost}${NC}"
-    mysql -h ${mysqlHost}-u ${guacUser} -p${guacPwd} ${guacDb} < guacamole-auth-jdbc-${GUACVERSION}/mysql/schema/001-create-schema.sql
-    mysql -h ${mysqlHost}-u ${guacUser} -p${guacPwd} ${guacDb} < guacamole-auth-jdbc-${GUACVERSION}/mysql/schema/002-create-admin-user.sql
+    mysql -h ${mysqlHost} -u ${guacUser} -p${guacPwd} ${guacDb} < guacamole-auth-jdbc-${GUACVERSION}/mysql/schema/001-create-schema.sql
+    mysql -h ${mysqlHost} -u ${guacUser} -p${guacPwd} ${guacDb} < guacamole-auth-jdbc-${GUACVERSION}/mysql/schema/002-create-admin-user.sql
         if [ $? -ne 0 ]; then
         echo -e "${RED}Failed${NC}" 1>&2
         exit 1
