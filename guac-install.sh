@@ -233,16 +233,32 @@ if [ "${installDuo}" = true ]; then
     echo -e "${GREEN}Downloaded guacamole-auth-duo-${GUACVERSION}.tar.gz${NC}"
 fi
 
+# # Deal with missing MySQL Connector/J
+# if [[ -z $LIBJAVA ]]; then
+#     # Download MySQL Connector/J
+#     wget -q --show-progress -O mysql-connector-java-${MCJVER}.tar.gz https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${MCJVER}.tar.gz
+#     if [ $? -ne 0 ]; then
+#         echo -e "${RED}Failed to download mysql-connector-java-${MCJVER}.tar.gz" 1>&2
+#         echo -e "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MCJVER}.tar.gz${NC}"
+#         exit 1
+#     else
+#         tar -xzf mysql-connector-java-${MCJVER}.tar.gz
+#     fi
+#     echo -e "${GREEN}Downloaded mysql-connector-java-${MCJVER}.tar.gz${NC}"
+# else
+#     echo -e "${YELLOW}Skipping manually installing MySQL Connector/J${NC}"
+# fi
+# echo -e "${GREEN}Downloading complete.${NC}"
 # Deal with missing MySQL Connector/J
 if [[ -z $LIBJAVA ]]; then
     # Download MySQL Connector/J
-    wget -q --show-progress -O mysql-connector-java-${MCJVER}.tar.gz https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${MCJVER}.tar.gz
+    wget -q --show-progress -O mysql-connector-j-${MCJVER}.tar.gz https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${MCJVER}.tar.gz
     if [ $? -ne 0 ]; then
         echo -e "${RED}Failed to download mysql-connector-java-${MCJVER}.tar.gz" 1>&2
         echo -e "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MCJVER}.tar.gz${NC}"
         exit 1
     else
-        tar -xzf mysql-connector-java-${MCJVER}.tar.gz
+        tar -xzf mysql-connector-j-${MCJVER}.tar.gz
     fi
     echo -e "${GREEN}Downloaded mysql-connector-java-${MCJVER}.tar.gz${NC}"
 else
@@ -311,6 +327,7 @@ echo
 cd ..
 mv -f guacamole-${GUACVERSION}.war /etc/guacamole/guacamole.war
 mv -f guacamole-auth-jdbc-${GUACVERSION}/mysql/guacamole-auth-jdbc-mysql-${GUACVERSION}.jar /etc/guacamole/extensions/
+mv -f mysql-connector-j-${MCJVER}/mysql-connector-j-${MCJVER}.jar /etc/guacamole/lib/
 
 # Create Symbolic Link for Tomcat
 ln -sf /etc/guacamole/guacamole.war /var/lib/${TOMCAT}/webapps/ROOT.war
